@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dwarf Fortress</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Dwarf Fortress</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="#quicklink-13/12/2022">13/12/2022</a> 19:17:22</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="#quicklink-13/12/2022">13/12/2022</a> 19:17:27</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default%20list%20text_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default%20list%20text_library_ascending_name_ascending.html#quicklink-Itch.io">Itch.io</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default%20list%20text_source_ascending_name_ascending.html#quicklink-itch.io">itch.io</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default%20list%20text_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="#quicklink-13/03/2019">13/03/2019</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="#quicklink-86">86</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="#quicklink-84">84</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Role-playing (RPG)">Role-playing (RPG)</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Strategy">Strategy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Turn-based strategy (TBS)">Turn-based strategy (TBS)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Bay 12 Games">Bay 12 Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Bay 12 Games">Bay 12 Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.reddit.com/r/dwarffortress" target="_blank">Reddit</a><br/><a href="https://en.wikipedia.org/wiki/Dwarf_Fortress" target="_blank">Wikipedia</a><br/><a href="http://www.bay12games.com/dwarves" target="_blank">Official Website</a><br/><a href="https://dwarffortresswiki.org/" target="_blank">Wikia</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<p class="text-center"><strong>Available to buy NOW&nbsp;on&nbsp;itch.io!</strong></p>
+<p>Follow along with development:</p>
+<p>🌳&nbsp;<a href="http://www.bay12games.com/dwarves/" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Bay12 Website/Dev Log</a><br>🌳 <a href="https://twitter.com/Bay12Games" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Bay12 Twitter</a><br>🌳<a href="https://twitter.com/KitfoxGames" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Kitfox&nbsp;Twitter</a><br>🌳&nbsp;<a href="http://eepurl.com/RL5cP" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Newsletter<br></a>🌳&nbsp;<a href="https://discord.gg/kitfoxgames" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Discord</a><br></p>
+<p>Dwarf Fortress Classic has been available for free on <a href="http://bay12games.com/dwarves/" referrerpolicy="origin" rel="nofollow noopener">bay12games.com</a> for years. But for graphics and music, a paid version is now available on itch.io!&nbsp;<br></p>
+<p><img src="https://img.itch.zone/aW1nLzE4OTg1MzIucG5n/original/Ee2ZXK.png" loading="lazy"><br></p>
+<ul><li>Not just generated geometry -- a whole simulated world. Generated rise and fall of civilizations, personalities, creatures, cultures, etc. Infinite hours of gameplay.</li><li>Now with beautiful pixel graphics and music! </li><li>Learn the basics with in-game tutorials</li><li>A lifetime “living” project - created/updated since 2003, with no end in sight</li><li>Generate your unique world and manage a bustling colony of dwarves, even as they probably mine towards their eventual demise.</li><li>A new endless hobby, just for you!</li></ul>
+<p><img src="https://img.itch.zone/aW1nLzE4OTg1MzMucG5n/original/h%2FyJZg.png" loading="lazy"><br></p>
+<p>Prepare for the deepest, most intricate simulation of a world that has ever been created. The legendary Dwarf Fortress is now on itch.io, and you must build a fortress and try to survive, despite threats of starvation, dragons, and madness.</p>
+<p><img src="https://img.itch.zone/aW1nLzEwMzYyMjI2LmpwZw==/original/91nxyQ.jpg" loading="lazy"><br></p>
+<p>In this complex construction/management/roguelike simulation, every generated world brings a unique challenge, whether it’s dwarves with their own simulated personalities or aquifers. Observe what makes your fortress fall into eventual decline, and learn for next time… until something else inevitably goes wrong.</p>
+<p>The combat model includes skills, body parts, material properties, aimed attacks, wrestling, pain, nausea, various poison effects, and much more.</p>
+<p>It’s difficult to convey the depth of the generation. Hundreds of animals and monsters, many of which are randomly created for each world, as well as generated poetry, musical forms, instruments, and dances for your dwarves to practice and perform. A dynamic weather model tracks wind, humidity, and air masses to create fronts, clouds, storms, and blizzards. Over two hundred rock and mineral types can appear, in their proper geological environments.</p>
+<p>Remember: Losing is fun!</p>
+<p><img src="https://img.itch.zone/aW1nLzE4OTg1NTcucG5n/original/SZLgBB.png" loading="lazy"><br></p>
+<p>Nothing substantial has changed, under the hood. It’s still good old Dwarf Fortress. A few bells and whistles won’t change that.</p>
+<p>You may already be familiar with the tile set mod packs from Michał “Mayday” Madej and Jacob "Ironhand" Bowman. Together, their efforts are creating an all-new tileset featuring brand new pixel art by artists Carolyn Jong and Neoriceisgood.&nbsp;Dwarf Fortress Steam edition will have a 15 track soundtrack by Dabu, Simon Swerwer and Águeda Macias including tracks in the Dwarvish language!<br><br>It's never been easier to start playing! We've improved the new player experience with the addition of tutorials to guide you through building your first fort and keeping your dwarves happy.<br></p>
+<p>Wondering why Bay 12 Games is selling Dwarf Fortress on itch.io, and working with Kitfox? <a href="https://docs.google.com/document/d/1Xwhi1KKp5QD9R4-euZ0JqRB0vHdNPqdBJXjIgp-yYHA/edit?usp=sharing" referrerpolicy="origin" rel="nofollow noopener">Check the FAQ</a>!<img src="https://img.itch.zone/aW1nLzE5MjcyNTAucG5n/original/yOjbAy.png" style="color: inherit" loading="lazy"></p>
+<p><em></em><br></p>
+<p>Command your dwarves as they search for wealth in their generated mountain. Your dwarves will need a steady supply of food and beer, but they’ll also need your guidance in surviving attacks from hostile civilizations, the wilderness, or even the dead.</p>
+<ul><li>Craft treasures and furnitures from various materials</li><li>Establish a barony and support the increasingly demanding nobility</li><li>Read your dwarves’ thoughts to keep them happy</li><li>Build floodgates to divert water for farming, and/or prevent magma mishaps</li><li>Build structures and watch your dwarves discover and build their culture, like taverns, libraries, temples, honey, wax, pottery, animal training, bookbinding, and&nbsp; more.</li></ul>
+<p><img src="https://img.itch.zone/aW1nLzE4OTg1MzQucG5n/original/u80ydl.png" loading="lazy"><br></p>
+<ul><li>The original inspiration for RimWorld, Prison Architect, and more.</li><li>One of the first video games acquired by the Museum of Modern Art in New York</li><li>Updated for over 16 years by two brothers (Tarn and Zach Adams), with no end in sight. </li></ul>
+<p>With the goal of simulating all of existence, Bay 12 estimates they’re only about 44% done.</p>
+<p class="text-center"><br></p>
+<p>Keep up on&nbsp;<a href="https://twitter.com/KitfoxGames" target="_blank" referrerpolicy="origin" rel="nofollow noopener">Twitter</a>!<br></p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
